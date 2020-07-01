@@ -1,11 +1,13 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SeleniumExtras.WaitHelpers;
 
 namespace MarsQA_1.Helpers
 {
@@ -22,7 +24,9 @@ namespace MarsQA_1.Helpers
 
             //Maximise the window
             driver.Manage().Window.Maximize();
-            Thread.Sleep(20000);
+            TurnWaitOn();
+           
+            // wait.ForElements(By.XPath("//A[@class='item'][text()='Sign In']"), driver, TimeSpan.FromSeconds(20));
         }
 
         public static string BaseUrl
@@ -37,6 +41,17 @@ namespace MarsQA_1.Helpers
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
         }
+        public static void TurnWaitOn()
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
+
+        }
+
+        /*public static void WaitHelpers(By by, IWebDriver driver, TimeSpan timeSpan)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(by));
+        }*/
 
         public static void NavigateUrl()
         {

@@ -18,7 +18,10 @@ namespace MarsQA_1.SpecflowPages.Pages
     {
         public static IWebDriver driver { get; set; }
         private static IWebElement languagetab = Driver.driver.FindElement(By.XPath("//a[@data-tab = 'first']"));
+
+        
         private static IWebElement Addnew => Driver.driver.FindElement(By.XPath("//div[@class = 'form-wrapper']/table/thead/tr/th[3]/div"));
+
         private static IWebElement Addlanguage => Driver.driver.FindElement(By.XPath("//input[@placeholder = 'Add Language']"));
         private static IWebElement languageDropdown => Driver.driver.FindElement(By.XPath("//select[@class = 'ui dropdown']"));
         private static IWebElement Addbtn => Driver.driver.FindElement(By.XPath("//div[@class = 'six wide field']/input"));
@@ -51,6 +54,8 @@ namespace MarsQA_1.SpecflowPages.Pages
 
         private static IWebElement cancelCertificationbtn => Driver.driver.FindElement(By.XPath("//div[@data-tab = 'fourth']/div/div[2]/div/div/div[3]/input[2]"));
 
+       
+
         public static void AddNewLanguage()
 
         {
@@ -58,7 +63,8 @@ namespace MarsQA_1.SpecflowPages.Pages
             //Click on Add new button
             Addnew.Click();
             //Ientify and enter language
-            Addlanguage.SendKeys("Spanish");
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
+            Addlanguage.SendKeys(ExcelLibHelper.ReadData(2, "language"));
             //Identify and select from the dropdown
             SelectElement s = new SelectElement(languageDropdown);
             s.SelectByIndex(2);
@@ -67,7 +73,7 @@ namespace MarsQA_1.SpecflowPages.Pages
 
 
         }
-        public static void CancelAvailability()
+        public static void Cancellanguage()
         {
 
             Addnew.Click();
@@ -85,8 +91,9 @@ namespace MarsQA_1.SpecflowPages.Pages
             skillstab.Click();
             //Click on Add new button
             AddNewskillsbtn.Click();
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
             // Enter skill in the add skill field
-            Addskills.SendKeys("Cooking");
+            Addskills.SendKeys(ExcelLibHelper.ReadData(2, "skill"));
             //Select level from the dropdown
             SelectElement skill = new SelectElement(Driver.driver.FindElement(By.XPath("//select[@class = 'ui fluid dropdown']")));
             skill.SelectByText("Beginner");
@@ -114,8 +121,9 @@ namespace MarsQA_1.SpecflowPages.Pages
             Educationtab.Click();
             //Click on Add new button            
             AddNewEducationbtn.Click();
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
             //Enter College/university name            
-            CollegeName.SendKeys("Symbiosis");
+            CollegeName.SendKeys(ExcelLibHelper.ReadData(2, "education"));
             //Select Country from the dropdown
             SelectElement education = new SelectElement(Driver.driver.FindElement(By.XPath("//div[@data-tab = 'third']/div/div[2]/div/div/div/div[2]/select")));
             education.SelectByText("Australia");
@@ -159,8 +167,9 @@ namespace MarsQA_1.SpecflowPages.Pages
             Certificationstab.Click();
             //Click on Add new button            
             AddNewCertificationbtn.Click();
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
             //Enter the Certicate name           
-            Certificate.SendKeys("ISTQB");
+            Certificate.SendKeys(ExcelLibHelper.ReadData(2, "certification"));
             //Enter the Institution            
             Institute.SendKeys("Adobe");
             //Select year of certification from the dropdown
@@ -259,24 +268,27 @@ namespace MarsQA_1.SpecflowPages.Pages
             Driver.TurnOnWait();
             languagetab.Click();
             Driver.TurnOnWait();
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
             String Vlanguage = Driver.driver.FindElement(By.XPath("(//div[@data-tab='first']//table//tbody//tr[1]//td[1])[1]")).Text;
-            Assert.AreEqual("Spanish", Vlanguage);
+            Assert.AreEqual((ExcelLibHelper.ReadData(2, "language")), Vlanguage);
         }
         public static void Validatenewskill()
         {
             Driver.TurnOnWait();
             skillstab.Click();
             Driver.TurnOnWait();
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
             String Vskill = Driver.driver.FindElement(By.XPath("(//div[@data-tab='second']//table//tbody//tr[1]//td[1])[1]")).Text;
-            Assert.AreEqual("Cooking", Vskill);
+            Assert.AreEqual((ExcelLibHelper.ReadData(2, "skill")), Vskill);
         }
         public static void Validateneweducation()
         {
             Driver.TurnOnWait();
             Educationtab.Click();
             Driver.TurnOnWait();
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
             String Veducation = Driver.driver.FindElement(By.XPath("(//div[@data-tab='third']//table//tbody//tr[1]//td[2])[1]")).Text;
-            Assert.AreEqual("Symbiosis", Veducation);
+            Assert.AreEqual((ExcelLibHelper.ReadData(2, "education")), Veducation);
         }
         public static void Validatenewcertification()
         {
@@ -284,7 +296,8 @@ namespace MarsQA_1.SpecflowPages.Pages
             Certificationstab.Click();
             Driver.TurnOnWait();
             String VCertificate = Driver.driver.FindElement(By.XPath("(//div[@data-tab='fourth']//table//tbody//tr[1]//td[1])[1]")).Text;
-            Assert.AreEqual("ISTQB", VCertificate);
+            ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
+            Assert.AreEqual((ExcelLibHelper.ReadData(2, "certification")), VCertificate);
         }
         public static void DeleteLanguage()
         {
@@ -292,8 +305,8 @@ namespace MarsQA_1.SpecflowPages.Pages
             {
                 var all = Driver.driver.FindElement(By.XPath("//div[@data-tab = 'first']/div/div[2]/div/table/tbody[" + j + "]/tr/td[1]"));
                 Console.WriteLine(all.Text);
-
-                if (all.Text == "English")
+                ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
+                if (all.Text == (ExcelLibHelper.ReadData(2, "langdelete")))
                 {
                     IWebElement deleteLanguage = Driver.driver.FindElement(By.XPath("//div[@data-tab = 'first']/div/div[2]/div/table/tbody[" + j + "]/tr/td[3]/span[2]"));
                     deleteLanguage.Click();
@@ -324,8 +337,8 @@ namespace MarsQA_1.SpecflowPages.Pages
                 {
                     var all = Driver.driver.FindElement(By.XPath("//div[@data-tab = 'first']/div/div[2]/div/table/tbody[" + j + "]/tr/td[1]"));
                     Console.WriteLine(all.Text);
-
-                    if (all.Text == "Spanish")
+                    ExcelLibHelper.PopulateInCollection(@"C:\onboarding.specflow-master\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "language");
+                    if (all.Text == (ExcelLibHelper.ReadData(2, "language")))
                     {
                         IWebElement editLanguage = Driver.driver.FindElement(By.XPath("//div[@data-tab = 'first']/div/div[2]/div/table/tbody[" + j + "]/tr/td[3]/span[1]"));
                         editLanguage.Click();
@@ -333,7 +346,8 @@ namespace MarsQA_1.SpecflowPages.Pages
 
                         IWebElement languageedit = Driver.driver.FindElement(By.XPath("//div[@data-tab = 'first']/div/div[2]/div/table/tbody[" + j + "]/tr/td/div/div/input[1]"));
                         languageedit.Clear();
-                        languageedit.SendKeys("English");
+
+                        languageedit.SendKeys(ExcelLibHelper.ReadData(2, "langupdate"));
                         SelectElement s = new SelectElement(Driver.driver.FindElement(By.XPath("//div[@data-tab = 'first']/div/div[2]/div/table/tbody[" + j + "]/tr/td/div/div[2]/select")));
                         s.SelectByText("Basic");
                         Driver.driver.FindElement(By.XPath("//div[@data-tab = 'first']/div/div[2]/div/table/tbody[" + j + "]/tr/td/div/span/input[1]")).Click();
