@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RelevantCodes.ExtentReports;
+using AventStack.ExtentReports;
 
 
 namespace MarsQA_1.Helpers
@@ -17,8 +17,8 @@ namespace MarsQA_1.Helpers
 
         public class SaveScreenShotClass
         {
-            
-            public static string SaveScreenshot(IWebDriver driver, string ScreenShotFileName) // Definition
+
+            public string SaveScreenshot(IWebDriver driver, string ScreenShotFileName) // Definition
             {
                 var folderLocation = (ConstantHelpers.ScreenshotPath);
 
@@ -39,7 +39,7 @@ namespace MarsQA_1.Helpers
             }
         }
 
-        //ExtentReports
+        /*ExtentReports
         #region reports
         public static ExtentTest test;
         public static ExtentReports Extent;
@@ -52,8 +52,9 @@ namespace MarsQA_1.Helpers
             Extent.LoadConfig(ConstantHelpers.ReportXMLPath);
         }
     }
-    #endregion
+#endregion*/
+
+    }
+
 
 }
-
-

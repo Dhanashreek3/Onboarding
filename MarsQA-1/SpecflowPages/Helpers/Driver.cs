@@ -8,6 +8,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SeleniumExtras.WaitHelpers;
+using NUnit.Framework;
+using AventStack.ExtentReports;
+using NUnit.Framework.Interfaces;
+using static MarsQA_1.Helpers.CommonMethods;
+using TechTalk.SpecFlow;
 
 namespace MarsQA_1.Helpers
 {
@@ -24,7 +29,9 @@ namespace MarsQA_1.Helpers
 
             //Maximise the window
             driver.Manage().Window.Maximize();
-            TurnWaitOn();
+            //TurnWaitOn();
+
+            
            
             // wait.ForElements(By.XPath("//A[@class='item'][text()='Sign In']"), driver, TimeSpan.FromSeconds(20));
         }
@@ -43,9 +50,36 @@ namespace MarsQA_1.Helpers
         }
         public static void TurnWaitOn()
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(60);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
 
         }
+        public static void waitClickableElement(IWebDriver driver, string locator, string locatorValue)
+        {
+            try
+            {
+                if (locator == "Id")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(locatorValue)));
+                }
+                if (locator == "XPath")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath(locatorValue)));
+                }
+                if (locator == "CSSSelector")
+                {
+                    var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector(locatorValue)));
+                }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Exception at waitClickableElement", ex.Message);
+            }
+
+        }
+
 
         /*public static void WaitHelpers(By by, IWebDriver driver, TimeSpan timeSpan)
         {
@@ -70,5 +104,22 @@ namespace MarsQA_1.Helpers
             throw new NotImplementedException();
         }
         */
+        //paths for the reports
+
+        #region To access Path from resource file
+
+        
+       
+        public static string ScreenshotPath = ConstantHelpers.ScreenshotPath;
+        public static string ReportsPath = ConstantHelpers.ReportsPath;
+        #endregion
+
+        #region reports
+        public static ExtentTest test;
+        public static ExtentReports extent;
+
+        #endregion
+
+
     }
 }
